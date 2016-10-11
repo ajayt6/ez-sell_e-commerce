@@ -1,0 +1,10 @@
+<?php
+$icode=pg_fetch_result($item,$row,'item_code');
+$iname=pg_fetch_result($item,$row,'item_name');
+$icategory=pg_fetch_result($item,$row,'category');
+$bp=pg_fetch_result($item,$row,'base_price');
+$bh=pg_fetch_result($item,$row,'bid_highest');
+$bs=pg_fetch_result($item,$row,'bid_status');
+$path=pg_fetch_result($item,$row,'photo');
+$idate=pg_fetch_result($item,$row,'last_bid_date');
+?>

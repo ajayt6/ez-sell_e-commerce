@@ -1,0 +1,54 @@
+<html>
+<head> </head>
+<body>
+<?php
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+$conn=pg_connect("host=localhost port=5432 user=b090318cs dbname=db_b090140cs password=b090140cs");
+if(!$conn)
+echo "fail";
+else
+echo "success";
+?>
+<form action="test.php" method="post">
+<p> Name: <input type="text" name="name"> </p>
+<p> Roll: <input type="text" name="roll"> </p>
+<p> <input type="submit" name="submit" value="Enter"> </p>
+</form>
+<?php
+$name = $_POST["name"];
+$roll = $_POST["roll"];
+if($name)
+{
+ $query = pg_query($conn, "insert into test values('$name', '$roll')");
+$result = pg_query($conn, "select * FROM test");
+echo "Successfully Inserted: ".$name;
+}
+else
+{   
+echo "Failed";
+}
+$result = pg_query($conn, "select * FROM test");
+if($result) 
+{   
+        echo "Query Successful<br><br>";
+        echo "<table border='thick'>";
+        echo "<tr><td>Name</td><td>Roll No</td></tr>";
+        for($row = 0; $row < pg_num_rows($result); $row++)
+           {
+                $name = pg_fetch_result($result, $row, 'name');
+                $roll = pg_fetch_result($result, $row, 'rollno');
+                echo "<tr><td>". $name."</td><td>". $roll."</td></tr>";
+        }
+        echo "</table>";
+}
+else
+{
+        echo "Query Unsuccessful\n";
+}
+pg_close($conn);
+?>
+
+</body>
+</html>
+                                                                                           
